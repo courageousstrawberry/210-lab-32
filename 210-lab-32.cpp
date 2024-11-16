@@ -7,16 +7,23 @@
 using namespace std;
 
 int main() {
+    srand(time(0));
+    // Initialize deque with two cars
     deque<Car> booth(2);
+    int count = 0;
 
-    Car one;
-    Car two;
-    booth.push_back(one);
-    booth.push_back(two);
-
-    while(!(booth.empty())) {
-        Car add
+    cout << "Initial que: " << endl;
+    for (Car& car : booth){
+        car.print();
     }
+
+    /*
+    while(!(booth.empty())) {
+        count++;
+        Car add;
+
+
+    }*/
 
     return 0;
 }
