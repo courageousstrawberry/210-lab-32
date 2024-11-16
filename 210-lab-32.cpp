@@ -20,8 +20,6 @@ int main() {
     
     while(!(booth.empty())) {
         count++;
-        Car add;
-
         cout << "Time: " << count;
         int rand_num = 1 + rand() % 100;
 
@@ -29,14 +27,22 @@ int main() {
             cout << " Operation: Car paid: ";
             booth.front().print();
             booth.pop_front();
-            cout << endl;
+        }
+        else {
+            Car add;
+            booth.push_back(add);
+            cout << " Operation: Joined lane: ";
+            booth.back().print();
         }
 
         cout << "Queue: " << endl;
+        if (booth.empty()) {
+            cout << "Empty" << endl;
+        }
         for (Car& car : booth){
             car.print();
         }
-
+        cout << endl;
     }
 
     return 0;
