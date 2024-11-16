@@ -17,13 +17,27 @@ int main() {
         car.print();
     }
 
-    /*
+    
     while(!(booth.empty())) {
         count++;
         Car add;
 
+        cout << "Time: " << count;
+        int rand_num = 1 + rand() % 100;
 
-    }*/
+        if (rand_num <= 55){
+            cout << " Operation: Car paid: ";
+            booth.front().print();
+            booth.pop_front();
+            cout << endl;
+        }
+
+        cout << "Queue: " << endl;
+        for (Car& car : booth){
+            car.print();
+        }
+
+    }
 
     return 0;
 }
