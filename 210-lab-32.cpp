@@ -39,25 +39,40 @@ int main() {
 
         for (int i = 0; i < 4; i++) {
             double rand_num = (rand() % 100) / 100.0; // Random probability number
+            
+            // Check if the lane is empty
+            if (!(lanes[i].empty())) {
+                cout << "Lane: " << i << endl;
+                // If probability is 46%, the front car pays it's toll
+                if (rand_num <= PAY_PROB){
+                    cout << " Paid: ";
+                    lanes[i].front().print();
+                    lanes[i].pop_front();
+                }
+                // If 39% a new car enters the lane
+                else if (rand_num <= JOIN_PROB){
+                    Car add;
+                    lanes[i].push_back(add);
+                    cout << " Joined: ";
+                    lanes[i].back().print();
+                }
+                else if (rand_num <= SHIFT_PROB){
+                    Car shifting = lanes[i].back();
+                    lanes[i].pop_back();
+                    int newLane = rand() % 4;
+                    while (newLane == i) {
+                        newLane = rand() % 4;
+                    }
+                    lanes[newLane].push_back(shifting);
+                    cout << " Switched: ";
+                    shifting.print();
+                }
 
-            cout << "Lane: " << i << endl;
-            // If probability is 55%, the front car pays it's toll
-            if (rand_num <= PAY_PROB){
-                cout << " Paid: ";
-                lanes[i].front().print();
-                lanes[i].pop_front();
-            }
-            else {
-                // Otherwise, the last car enters the lane
-                Car add;
-                booth.push_back(add);
-                cout << " Operation: Joined lane: ";
-                booth.back().print();
             }
 
             // Display the queue of cars
             cout << "Queue: " << endl;
-            if (booth.empty()) {
+            if (lanes[i].empty()) {
                 cout << "Empty" << endl;
             }
             for (Car& car : booth){
