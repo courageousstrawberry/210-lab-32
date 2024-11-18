@@ -9,8 +9,16 @@ using namespace std;
 int main() {
     srand(time(0));
     // Initialize deque with two cars
-    deque<Car> booth(2);
+    deque<Car> lanes[4];
     int count = 0;
+
+    // Initialize the 4 lanes with a random number of cars from 1-3
+    for (int i = 0; i < 4; i++){
+        int num_cars = 1 + rand() % 3;
+        for (int j = 0; j < num_cars; j++) {
+            lanes[i].emplace_back();
+        }
+    }
 
     cout << "Initial que: " << endl;
     for (Car& car : booth){
