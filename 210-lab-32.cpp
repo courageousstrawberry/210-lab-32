@@ -69,6 +69,16 @@ int main() {
                 }
 
             }
+            // Lane is empty
+            else {
+                // 50% probability if a new car is added or not
+                if (rand_num <= 0.5) {
+                    Car add;
+                    lanes[i].push_back(add);
+                    cout << " Joined: ";
+                    lanes[i].back().print();
+                }
+            }
 
             // Display the queue of cars
             cout << "Queue: " << endl;
