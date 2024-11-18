@@ -26,7 +26,7 @@ int main() {
 
     cout << "Initial que: " << endl;
     for (int i = 0; i < 4; i++){
-        cout << "Lane 1:" << endl;
+        cout << "Lane: " << i+1 << endl;
         for (Car& car : lanes[i]){
             car.print();
         }
@@ -42,8 +42,7 @@ int main() {
             
             // Check if the lane is empty
             if (!(lanes[i].empty())) {
-                cout << "Lane: " << i << endl;
-            
+                //15% probability that the last car switches lanes
                 if (rand_num <= SHIFT_PROB){
                     Car shifting = lanes[i].back();
                     lanes[i].pop_back();
@@ -52,19 +51,19 @@ int main() {
                         newLane = rand() % 4;
                     }
                     lanes[newLane].push_back(shifting);
-                    cout << " Switched: ";
+                    cout << "Lane: " << i+1 << " Switched: ";
                     shifting.print();
                 }
                 // If 39% a new car enters the lane
                 else if (rand_num <= JOIN_PROB){
                     Car add;
                     lanes[i].push_back(add);
-                    cout << " Joined: ";
+                    cout << "Lane: " << i+1 << " Joined: ";
                     lanes[i].back().print();
                 }
                 // If probability is 46%, the front car pays it's toll
                 else if (rand_num <= PAY_PROB){
-                    cout << " Paid: ";
+                    cout << "Lane: " << i+1 << " Paid: ";
                     lanes[i].front().print();
                     lanes[i].pop_front();
                 }
@@ -76,14 +75,15 @@ int main() {
                 if (rand_num <= 0.5) {
                     Car add;
                     lanes[i].push_back(add);
-                    cout << " Joined: ";
+                    cout << "Lane: " << i+1 << " Joined: ";
                     lanes[i].back().print();
                 }
             }
 
-            // Display the queue of cars
+        }
+        // Display the queue of cars
             for (int i = 0; i < 4; i++){
-                cout << "Lane: " << i << " Queue: " << endl;
+                cout << "Lane: " << i+1 << " Queue: " << endl;
                 if (lanes[i].empty()) {
                     cout << "Empty" << endl;
                 }
@@ -92,7 +92,6 @@ int main() {
                 }
                 cout << endl;
             }
-        }
     }
 
     return 0;
