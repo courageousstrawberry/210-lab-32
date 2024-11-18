@@ -6,6 +6,10 @@
 
 using namespace std;
 
+const double PAY_PROB = 0.46;
+const double JOIN_PROB = 0.39;
+const double SHIFT_PROB = 0.15;
+
 int main() {
     srand(time(0));
     // Initialize deque with two cars
@@ -21,39 +25,46 @@ int main() {
     }
 
     cout << "Initial que: " << endl;
-    for (Car& car : booth){
-        car.print();
+    for (int i = 0; i < 4; i++){
+        cout << "Lane 1:" << endl;
+        for (Car& car : lanes[i]){
+            car.print();
+        }
     }
 
     // Loop until all cars have payed tolls
-    while(!(booth.empty())) {
+    while(count < 20) {
         count++;
-        cout << "Time: " << count;
-        int rand_num = 1 + rand() % 100; // Random probability number
+        cout << "Time: " << count << endl;
 
-        // If probability is 55%, the front car pays it's toll
-        if (rand_num <= 55){
-            cout << " Operation: Car paid: ";
-            booth.front().print();
-            booth.pop_front();
-        }
-        else {
-            // Otherwise, the last car enters the lane
-            Car add;
-            booth.push_back(add);
-            cout << " Operation: Joined lane: ";
-            booth.back().print();
-        }
+        for (int i = 0; i < 4; i++) {
+            double rand_num = (rand() % 100) / 100.0; // Random probability number
 
-        // Display the queue of cars
-        cout << "Queue: " << endl;
-        if (booth.empty()) {
-            cout << "Empty" << endl;
+            cout << "Lane: " << i << endl;
+            // If probability is 55%, the front car pays it's toll
+            if (rand_num <= PAY_PROB){
+                cout << " Paid: ";
+                lanes[i].front().print();
+                lanes[i].pop_front();
+            }
+            else {
+                // Otherwise, the last car enters the lane
+                Car add;
+                booth.push_back(add);
+                cout << " Operation: Joined lane: ";
+                booth.back().print();
+            }
+
+            // Display the queue of cars
+            cout << "Queue: " << endl;
+            if (booth.empty()) {
+                cout << "Empty" << endl;
+            }
+            for (Car& car : booth){
+                car.print();
+            }
+            cout << endl;
         }
-        for (Car& car : booth){
-            car.print();
-        }
-        cout << endl;
     }
 
     return 0;
